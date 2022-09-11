@@ -13,6 +13,9 @@ function App() {
             <Route path="/authors/" element={<Main/>} />
             <Route path="/authors/new" element={<NewAuthor/>} />
             <Route path="/authors/:id/edit" element={<UpdateAuthor/>} />
+
+            <Route path='/:anythingElse' element={ <Navigate to={'/authors/'} /> } />
+            <Route path='/authors/:anythingElse' element={ <Navigate to={'/authors/'} /> } />
          </Routes>                         
     </div>
     );
