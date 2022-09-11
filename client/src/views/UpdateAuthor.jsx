@@ -14,11 +14,13 @@ const Update = () => {
     useEffect(() => {
         axios.get('http://localhost:8000/api/authors/' + id)
             .then(res => {
+                if (res.data.path === "_id"){
+                    navigate('/authors')
+                }
                 setAuthor(res.data);
                 setLoaded(true);
             })
-            .catch(err => console.error(err));
-    });
+    }, []);
     
     const updateAuthor = (author) => {
         axios.put('http://localhost:8000/api/authors/' + id, author)
@@ -37,13 +39,15 @@ const Update = () => {
         <div style={{textAlign: 'center'}}>
             <h2>Edit this Author</h2>
             {errors.map((err, index) => <p key={index} style={{color: 'red'}}>{err}</p>)}
-            {loaded &&
-            <>
+            {loaded ?
+            
                 <AuthorForm
                     onSubmitProp={updateAuthor}
                     initialName={author.name}
                 />
-            </>
+                :
+                <h3>LOADING</h3>
+            
             }
         </div>
         

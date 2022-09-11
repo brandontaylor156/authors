@@ -7,8 +7,8 @@ module.exports.index = (request, response) => {
 }
 
 module.exports.findAllAuthors = (request, response) => {
-    Author.find()
-      .then(authorList => response.json(authorList))
+    Author.find() 
+      .then(authorList => response.json(authorList.sort((a, b)=> a.name.localeCompare(b.name))))
       .catch(err => response.json({ message: "Something went wrong", error: err }))
   };
 
@@ -30,7 +30,9 @@ module.exports.getAuthor = (request, response) => {
 module.exports.updateAuthor = (request, response) => {
     Author.findOneAndUpdate({_id:request.params.id}, request.body, {new:true, runValidators: true})
         .then(updatedAuthor => response.json(updatedAuthor))
-        .catch(err => response.status(400).json(err))
+        .catch(err => {
+            response.status(400).json(err)
+        })
 }
 
 module.exports.deleteAuthor = (request, response) => {

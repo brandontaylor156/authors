@@ -20,13 +20,6 @@ const Main = () => {
         setAuthors(authors.filter(author => author._id !== authorId));
     }
 
-    const createAuthor = author => {
-        axios.post('http://localhost:8000/api/authors', author)
-            .then(res => {
-                setAuthors([...authors, res.data])
-            })
-    }
-
     return (
         <div style={{textAlign: 'center'}}>
             <Link to={"/authors/new"}><h2>Add an Author</h2></Link>
